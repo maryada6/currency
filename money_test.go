@@ -84,6 +84,32 @@ func TestAmount(t *testing.T) {
 	})
 
 	t.Run("should return 300 as amount for 300 rupee and 0 paise", func(t *testing.T) {
-		assert.Equal(t, 300, NewMoney(300, 0).Amount())
+		assert.Equal(t, 300.00, NewMoney(300, 0).Amount())
+	})
+}
+
+func TestEqual(t *testing.T) {
+	t.Run("should return boolean value", func(t *testing.T) {
+		assert.IsType(t, true, NewMoney(1, 10).Equal(NewMoney(0, 110)))
+	})
+
+	t.Run("should return true value for equal money", func(t *testing.T) {
+		assert.Equal(t, true, NewMoney(100, 10).Equal(NewMoney(99, 110)))
+	})
+
+	t.Run("should return false value for different money", func(t *testing.T) {
+		assert.Equal(t, false, NewMoney(110, 10).Equal(NewMoney(99, 110)))
+	})
+
+	t.Run("should return false value for different negative money", func(t *testing.T) {
+		assert.Equal(t, false, NewMoney(-110, -10).Equal(NewMoney(-99, -110)))
+	})
+
+	t.Run("should return true value for equal negative money", func(t *testing.T) {
+		assert.Equal(t, true, NewMoney(-100, -10).Equal(NewMoney(-99, -110)))
+	})
+
+	t.Run("should return false value while comparing a negative money and a positive money", func(t *testing.T) {
+		assert.Equal(t, false, NewMoney(-100, -10).Equal(NewMoney(100, 10)))
 	})
 }

@@ -13,12 +13,20 @@ func NewMoney(rupee, paise int64) Money {
 	return Money{paise}
 }
 
-func (moneyOne Money) Add(moneyTwo Money) float64 {
-	paise := moneyOne.paise + moneyTwo.paise
+func (money Money) Add(moneyTwo Money) float64 {
+	paise := money.paise + moneyTwo.paise
 
 	return NewMoney(0, paise).Amount()
 }
 
-func (moneyOne Money) Amount() float64 {
-	return float64(moneyOne.paise) / 100
+func (money Money) Amount() float64 {
+	return float64(money.paise) / 100
+}
+
+func (money Money) Equal(moneyTwo Money) bool {
+	if money.paise == moneyTwo.paise {
+		return true
+	}
+	
+	return false
 }
