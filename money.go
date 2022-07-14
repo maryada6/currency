@@ -6,7 +6,10 @@ type Money struct {
 }
 
 func NewMoney(rupee, paise int64) Money {
-	if paise >= 100 {
+	if (rupee < 0 && paise > 0) || (rupee > 0 && paise < 0) {
+		panic("rupee and paise should have same sign")
+	}
+	if paise >= 100 || paise < 0 {
 		rupee += paise / 100
 		paise = paise % 100
 	}
@@ -14,6 +17,8 @@ func NewMoney(rupee, paise int64) Money {
 	return Money{rupee, paise}
 }
 
-func (money_one Money) Add(money_two Money) Money {
-	return Money{5, 10}
+func (moneyOne Money) Add(moneyTwo Money) Money {
+	paise := moneyOne.rupee*100 + moneyTwo.rupee*100 + moneyOne.paise + moneyTwo.paise
+
+	return NewMoney(0, paise)
 }
