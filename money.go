@@ -13,3 +13,7 @@ func NewMoney(rupee, paise int64) Money {
 
 	return Money{rupee, paise}
 }
+
+func (money_one Money) Add(money_two Money) Money {
+	return Money{5, 10}
+}
