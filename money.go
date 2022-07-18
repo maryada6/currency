@@ -18,14 +18,14 @@ func NewMoney(rupee, paise int64) Money {
 func (money Money) Add(moneyTwo Money) float64 {
 	paise := money.paise + moneyTwo.paise
 
-	return NewMoney(0, paise).Amount()
+	return NewMoney(0, paise).Balance()
 }
 
-func (money Money) Amount() float64 {
+func (money Money) Balance() float64 {
 	return float64(money.paise) / conversion
 }
 
-func (money Money) Equal(moneyTwo Money) bool {
+func (money Money) Equals(moneyTwo Money) bool {
 	return money.paise == moneyTwo.paise
 }
 
