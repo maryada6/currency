@@ -138,3 +138,13 @@ func TestEqual(t *testing.T) {
 		assert.IsType(t, true, moneyOne.Equal(moneyThree))
 	})
 }
+
+func TestSub(t *testing.T) {
+	t.Run("add should return money", func(t *testing.T) {
+		assert.IsType(t, float64(0), NewMoney(0, 0).Sub(NewMoney(0, 0)))
+	})
+
+	t.Run("should return money with -1 rupee and 0 paise on addition of 2 rupee and 7 paise with 3 rupee and 7 paise", func(t *testing.T) {
+		assert.Equal(t, -1.00, NewMoney(2, 7).Sub(NewMoney(3, 7)))
+	})
+}
