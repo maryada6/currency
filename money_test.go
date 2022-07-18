@@ -152,19 +152,27 @@ func TestSubtract(t *testing.T) {
 		assert.Equal(t, 1.00, NewMoney(-2, -7).Subtract(NewMoney(-3, -7)))
 	})
 
-	t.Run("should return money with 5.14 rupee and 0 paise on subtraction of 2 rupee and 7 paise with -3 rupee and -7 paise", func(t *testing.T) {
+	t.Run("should return money with 5 rupee and 14 paise on subtraction of 2 rupee and 7 paise with -3 rupee and -7 paise", func(t *testing.T) {
 		assert.Equal(t, 5.14, NewMoney(2, 7).Subtract(NewMoney(-3, -7)))
 	})
 
-	t.Run("should return money with -5.14 rupee and 0 paise on subtraction of -2 rupee and -7 paise with 3 rupee and 7 paise", func(t *testing.T) {
+	t.Run("should return money with -5 rupee and 14 paise on subtraction of -2 rupee and -7 paise with 3 rupee and 7 paise", func(t *testing.T) {
 		assert.Equal(t, -5.14, NewMoney(-2, -7).Subtract(NewMoney(3, 7)))
 	})
 
-	t.Run("should return money with 5.14 rupee and 0 paise on subtraction of 5 rupee and 14 paise with 0 rupee and 0 paise", func(t *testing.T) {
+	t.Run("should return money with 5 rupee and 14 paise on subtraction of 5 rupee and 14 paise with 0 rupee and 0 paise", func(t *testing.T) {
 		assert.Equal(t, 5.14, NewMoney(5, 14).Subtract(NewMoney(0, 0)))
 	})
 
-	t.Run("should return money with -5.14 rupee and 0 paise on subtraction of -5 rupee and -14 paise with 0 rupee and 0 paise", func(t *testing.T) {
+	t.Run("should return money with -5 rupee and 14 paise on subtraction of -5 rupee and -14 paise with 0 rupee and 0 paise", func(t *testing.T) {
 		assert.Equal(t, -5.14, NewMoney(-5, -14).Subtract(NewMoney(0, 0)))
+	})
+
+	t.Run("should return money with -4 rupee and 0 paise on subtraction of -5 rupee and 0 paise with 0 rupee and -100 paise", func(t *testing.T) {
+		assert.Equal(t, -4.00, NewMoney(-5, 00).Subtract(NewMoney(0, -100)))
+	})
+
+	t.Run("should return money with -6 rupee and 0 paise on subtraction of -5 rupee and 0 paise with 0 rupee and 100 paise", func(t *testing.T) {
+		assert.Equal(t, -6.00, NewMoney(-5, 00).Subtract(NewMoney(0, 100)))
 	})
 }
