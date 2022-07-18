@@ -30,4 +30,26 @@ To run the test use the following command:
 
 ## Library usage
 
-TODO: Library usage to be added.
+__Money entity__, To use money entity import it in the required file. Create money object as:
+
+    object name := NewMoney( rupee, paise )
+
+To use __Balance__ function to get the current balance(moneyOne and moneyTwo to be objects of type Money):
+
+    money.Balance()
+_Returns the balance amount as __rupee.paise__._
+
+To use __Equals__ function to compare two moneys:
+
+    moneyOne.Equals(moneyTwo)
+_Returns True or False depending on equality._
+
+To use __Add__ function to add two moneys:
+
+    moneyOne.Add(moneyTwo)
+_The sum is stored in moneyOne._
+
+To use __Subtract__ function to subtract one money from another:
+
+    moneyOne.Subtract(moneyTwo)
+_The difference is stored in moneyOne._
