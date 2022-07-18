@@ -30,7 +30,5 @@ func (money Money) Equal(moneyTwo Money) bool {
 }
 
 func (money Money) Subtract(moneyTwo Money) float64 {
-	moneyTwoFlipSign := NewMoney(0, -moneyTwo.paise)
-
-	return money.Add(moneyTwoFlipSign)
+	return money.Add(NewMoney(0, -moneyTwo.paise))
 }
