@@ -139,12 +139,32 @@ func TestEqual(t *testing.T) {
 	})
 }
 
-func TestSub(t *testing.T) {
+func TestSubtract(t *testing.T) {
 	t.Run("add should return money", func(t *testing.T) {
-		assert.IsType(t, float64(0), NewMoney(0, 0).Sub(NewMoney(0, 0)))
+		assert.IsType(t, float64(0), NewMoney(0, 0).Subtract(NewMoney(0, 0)))
 	})
 
-	t.Run("should return money with -1 rupee and 0 paise on addition of 2 rupee and 7 paise with 3 rupee and 7 paise", func(t *testing.T) {
-		assert.Equal(t, -1.00, NewMoney(2, 7).Sub(NewMoney(3, 7)))
+	t.Run("should return money with -1 rupee and 0 paise on subtraction of 2 rupee and 7 paise with 3 rupee and 7 paise", func(t *testing.T) {
+		assert.Equal(t, -1.00, NewMoney(2, 7).Subtract(NewMoney(3, 7)))
+	})
+
+	t.Run("should return money with 1 rupee and 0 paise on subtraction of -2 rupee and -7 paise with -3 rupee and -7 paise", func(t *testing.T) {
+		assert.Equal(t, 1.00, NewMoney(-2, -7).Subtract(NewMoney(-3, -7)))
+	})
+
+	t.Run("should return money with 5.14 rupee and 0 paise on subtraction of 2 rupee and 7 paise with -3 rupee and -7 paise", func(t *testing.T) {
+		assert.Equal(t, 5.14, NewMoney(2, 7).Subtract(NewMoney(-3, -7)))
+	})
+
+	t.Run("should return money with -5.14 rupee and 0 paise on subtraction of -2 rupee and -7 paise with 3 rupee and 7 paise", func(t *testing.T) {
+		assert.Equal(t, -5.14, NewMoney(-2, -7).Subtract(NewMoney(3, 7)))
+	})
+
+	t.Run("should return money with 5.14 rupee and 0 paise on subtraction of 5 rupee and 14 paise with 0 rupee and 0 paise", func(t *testing.T) {
+		assert.Equal(t, 5.14, NewMoney(5, 14).Subtract(NewMoney(0, 0)))
+	})
+
+	t.Run("should return money with -5.14 rupee and 0 paise on subtraction of -5 rupee and -14 paise with 0 rupee and 0 paise", func(t *testing.T) {
+		assert.Equal(t, -5.14, NewMoney(-5, -14).Subtract(NewMoney(0, 0)))
 	})
 }

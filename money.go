@@ -29,7 +29,7 @@ func (money Money) Equal(moneyTwo Money) bool {
 	return money.paise == moneyTwo.paise
 }
 
-func (money Money) Sub(moneyTwo Money) float64 {
+func (money Money) Subtract(moneyTwo Money) float64 {
 	moneyTwoFlipSign := NewMoney(0, -moneyTwo.paise)
 
 	return money.Add(moneyTwoFlipSign)
