@@ -1,5 +1,7 @@
 package currency
 
+const conversion = 100
+
 type Money struct {
 	paise int64
 }
@@ -8,7 +10,7 @@ func NewMoney(rupee, paise int64) Money {
 	if (rupee < 0 && paise > 0) || (rupee > 0 && paise < 0) {
 		panic("rupee and paise should have same sign")
 	}
-	paise = rupee*100 + paise
+	paise = rupee*conversion + paise
 
 	return Money{paise}
 }
@@ -20,13 +22,9 @@ func (money Money) Add(moneyTwo Money) float64 {
 }
 
 func (money Money) Amount() float64 {
-	return float64(money.paise) / 100
+	return float64(money.paise) / conversion
 }
 
 func (money Money) Equal(moneyTwo Money) bool {
-	if money.paise == moneyTwo.paise {
-		return true
-	}
-	
-	return false
+	return money.paise == moneyTwo.paise
 }

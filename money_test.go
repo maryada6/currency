@@ -55,8 +55,12 @@ func TestAdd(t *testing.T) {
 }
 
 func TestAmount(t *testing.T) {
-	t.Run("should return amount of money", func(t *testing.T) {
+	t.Run("should return float value", func(t *testing.T) {
 		assert.IsType(t, float64(0), NewMoney(100, 100).Amount())
+	})
+
+	t.Run("should return 0.00 as amount for 0 rupee and 0 paise", func(t *testing.T) {
+		assert.Equal(t, 0.00, NewMoney(0, 0).Amount())
 	})
 
 	t.Run("should return 1.00 as amount for 1 rupee and 0 paise", func(t *testing.T) {
@@ -71,45 +75,66 @@ func TestAmount(t *testing.T) {
 		assert.Equal(t, -100.00, NewMoney(0, -10000).Amount())
 	})
 
-	t.Run("should return 100.10 as amount for 100 rupee and 10 paise", func(t *testing.T) {
-		assert.Equal(t, 100.10, NewMoney(100, 10).Amount())
+	t.Run("should return -1.00 as amount for -1 rupee and 0 paise", func(t *testing.T) {
+		assert.Equal(t, -1.00, NewMoney(-1, 0).Amount())
 	})
 
-	t.Run("should return 10000.00 as amount for 10000 rupee and 0 paise", func(t *testing.T) {
-		assert.Equal(t, 10000.00, NewMoney(10000, 0).Amount())
+	t.Run("should return 100.10 as amount for 100 rupee and 10 paise", func(t *testing.T) {
+		assert.Equal(t, 100.10, NewMoney(100, 10).Amount())
 	})
 
 	t.Run("should return -200.00 as amount for -100 rupee and -10000 paise", func(t *testing.T) {
 		assert.Equal(t, -200.00, NewMoney(-100, -10000).Amount())
 	})
-
-	t.Run("should return 300 as amount for 300 rupee and 0 paise", func(t *testing.T) {
-		assert.Equal(t, 300.00, NewMoney(300, 0).Amount())
-	})
 }
 
 func TestEqual(t *testing.T) {
 	t.Run("should return boolean value", func(t *testing.T) {
-		assert.IsType(t, true, NewMoney(1, 10).Equal(NewMoney(0, 110)))
+		moneyOne := NewMoney(1, 10)
+		moneyTwo := NewMoney(0, 110)
+		assert.IsType(t, true, moneyOne.Equal(moneyTwo))
+		assert.IsType(t, true, moneyTwo.Equal(moneyOne))
 	})
 
 	t.Run("should return true value for equal money", func(t *testing.T) {
-		assert.Equal(t, true, NewMoney(100, 10).Equal(NewMoney(99, 110)))
+		moneyOne := NewMoney(1, 10)
+		moneyTwo := NewMoney(1, 10)
+		assert.IsType(t, true, moneyOne.Equal(moneyTwo))
+		assert.IsType(t, true, moneyTwo.Equal(moneyOne))
 	})
 
 	t.Run("should return false value for different money", func(t *testing.T) {
-		assert.Equal(t, false, NewMoney(110, 10).Equal(NewMoney(99, 110)))
+		moneyOne := NewMoney(1, 10)
+		moneyTwo := NewMoney(9, 110)
+		assert.IsType(t, true, moneyOne.Equal(moneyTwo))
+		assert.IsType(t, true, moneyTwo.Equal(moneyOne))
 	})
 
 	t.Run("should return false value for different negative money", func(t *testing.T) {
 		assert.Equal(t, false, NewMoney(-110, -10).Equal(NewMoney(-99, -110)))
+		assert.Equal(t, false, NewMoney(-99, -110).Equal(NewMoney(-110, -10)))
 	})
 
 	t.Run("should return true value for equal negative money", func(t *testing.T) {
-		assert.Equal(t, true, NewMoney(-100, -10).Equal(NewMoney(-99, -110)))
+		moneyOne := NewMoney(-99, -10)
+		moneyTwo := NewMoney(-199, -110)
+		assert.IsType(t, true, moneyOne.Equal(moneyTwo))
+		assert.IsType(t, true, moneyTwo.Equal(moneyOne))
 	})
 
 	t.Run("should return false value while comparing a negative money and a positive money", func(t *testing.T) {
-		assert.Equal(t, false, NewMoney(-100, -10).Equal(NewMoney(100, 10)))
+		moneyOne := NewMoney(1, 10)
+		moneyTwo := NewMoney(-1, -10)
+		assert.IsType(t, true, moneyOne.Equal(moneyTwo))
+		assert.IsType(t, true, moneyTwo.Equal(moneyOne))
+	})
+
+	t.Run("should follow transitive property", func(t *testing.T) {
+		moneyOne := NewMoney(2, 10)
+		moneyTwo := NewMoney(0, 210)
+		moneyThree := NewMoney(1, 110)
+		assert.IsType(t, true, moneyOne.Equal(moneyTwo))
+		assert.IsType(t, true, moneyTwo.Equal(moneyThree))
+		assert.IsType(t, true, moneyOne.Equal(moneyThree))
 	})
 }
