@@ -15,10 +15,10 @@ func NewMoney(rupee, paise int64) Money {
 	return Money{paise}
 }
 
-func (money Money) Add(moneyTwo Money) float64 {
-	paise := money.paise + moneyTwo.paise
+func (money *Money) Add(moneyTwo Money) float64 {
+	money.paise += moneyTwo.paise
 
-	return NewMoney(0, paise).Balance()
+	return money.Balance()
 }
 
 func (money Money) Balance() float64 {
@@ -29,6 +29,6 @@ func (money Money) Equals(moneyTwo Money) bool {
 	return money.paise == moneyTwo.paise
 }
 
-func (money Money) Subtract(moneyTwo Money) float64 {
+func (money *Money) Subtract(moneyTwo Money) float64 {
 	return money.Add(NewMoney(0, -moneyTwo.paise))
 }
